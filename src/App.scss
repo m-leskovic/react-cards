@@ -1,0 +1,374 @@
+@import "~bootstrap/scss/bootstrap";
+
+$black: rgb(0, 0, 0);
+$white: rgb(255, 255, 255);
+$red: rgb(172, 27, 27);
+$teal: rgb(38, 79, 59);
+$border-color: 3px solid teal;
+$border-rad: 10px;
+$shadow: 0.1rem 0.1rem 0.2rem rgb(62, 62, 62);
+$img-filter: drop-shadow(0 0.1rem 0.2rem rgb(62, 62, 62));
+  
+html {
+    font-size: 1em;
+}
+
+@include media-breakpoint-up(xs) {
+    html {
+        font-size: 0.9em;
+    }
+}
+
+@include media-breakpoint-up(sm) {
+    html {
+        font-size: 1em;
+    }
+}
+
+@include media-breakpoint-up(md) {
+    html {
+        font-size: 1.1em;
+    }
+}
+
+@include media-breakpoint-up(lg) {
+    html {
+        font-size: 1.3em;
+    }
+}
+
+@include media-breakpoint-up(xl) {
+    html {
+        font-size: 1.5em;
+    }
+}
+
+html, body, #root, .App {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Inter", sans-serif;
+    box-sizing: border-box;
+}
+
+.btn {
+    box-shadow: $shadow;
+    border-radius: $border-rad;
+    border: transparent;
+}
+
+.navbar {
+
+    .nav-link {
+        margin-right: 0.8rem;
+        font-size: 1.4em;
+        color: $black;
+        &:hover {
+            color: rgb(47, 135, 92);
+        }
+    }
+
+    .navbar-text {
+        color: $black;
+    }
+
+    .nav-brand {
+        font-size: 1.4em;
+    }
+
+    .logo-png {
+        max-width: 3rem;
+    }
+
+    .nav-login-btn {
+        font-size: 1.2em;
+        color: $white;
+        background-color: rgb(47, 135, 92);
+        box-shadow: none;
+        border: $border-color;
+        border-radius: $border-rad;
+        &:hover {
+            background-color: $teal;
+        }
+    }
+
+    .nav-logged-wrapper {
+        margin-bottom: 0.3rem;
+
+        .fa-user {
+            margin-right: 0.5rem;
+            color: $teal;
+            font-size: 1.1em;
+        }
+
+        .nav-logged-user {
+            font-size: 1.2em;
+        }
+
+        .nav-logout-btn {
+            margin-left: 0.8rem;
+            padding: 0.3rem 0.6rem;
+            background-color: rgb(47, 135, 92);
+            box-shadow: none;
+            &:hover {
+                background-color: $teal;
+            }
+        }
+    }
+
+}
+
+.login-wrapper {
+    border: $border-color;
+    border-radius: $border-rad;
+    height: 70vh;
+
+    .login-form {
+        height: 100%;
+    }
+
+    .login-title {
+        font-size: 2em;
+    }
+
+    .login-group {
+        width: 90%;
+    }
+
+    .login-label {
+        font-size: 1.5em;
+    }
+
+    .login-input {
+        font-size: 1.5em;
+    }
+    
+    .login-btn {
+        padding: 0.5rem;
+        width: 50%;
+        color: $white;
+        background-color: rgb(47, 135, 92);
+        box-shadow: none;
+        border: $border-color;
+        border-radius: $border-rad;
+        &:hover {
+            background-color: $teal;
+        }
+    }
+}
+
+.home {
+    padding: 2rem 4rem;
+    width: fit-content;
+    height: auto;
+    border: $border-color;
+    border-radius: $border-rad;
+
+    .content {
+        margin: 1rem;
+        padding: 1.5rem;
+        border: $border-color;
+        border-radius: $border-rad;
+    
+        .card-png {
+            max-width: 18rem;
+            filter: $img-filter;
+        }
+    
+        .content-info {
+            margin: 0 1rem;
+
+            .content-info-top {
+                font-size: 1.5em;
+            }
+            .content-info-bottom {
+                font-size: 1.3em;
+            }
+        }
+    
+        .details-btn {
+            font-size: 1.1em;
+            background-color: rgb(47, 135, 92);
+            border-radius: $border-rad;
+            &:hover {
+                background-color: $teal;
+            }
+        }
+    }
+
+    .add-btn {
+        margin: 1rem 0;
+        padding: 1rem;
+        width: 50%;
+        font-size: 1.5em;
+        background-color: $red;
+    }
+}
+.modal-backdrop {
+    width: 100%;
+    height: 100%;
+}
+
+.modal-content {
+
+    .close-btn {
+        margin: 0.8rem;
+    }
+    
+    .add-card-title {
+        text-align: center;
+        font-size: 1.8em;
+    }
+
+    .add-card-form {
+        padding: 1rem;
+        gap: 0.3rem;
+
+        .add-form-label {
+            font-size: 1.1em;
+        }
+            
+        .submit-btn {
+            margin: 1rem 0;
+            width: 50%;
+            font-size: 1.3em;
+            color: $white;
+            background-color: $red;
+        }
+    } 
+}
+
+.details {
+    height: auto;
+    background-image: linear-gradient(to right, rgb(115, 162, 139), rgb(39, 121, 82));
+    border-radius: $border-rad;
+
+    .bank-name {
+        color: $white;
+    }
+
+    .card-btn {
+        color: $white;
+        &:first-child {
+            background-color: $teal;
+        }
+        &:first-child:hover {
+            background-color: rgb(21, 57, 40);
+        }
+        &:nth-child(2) {
+            background-color: $red;
+        }
+        &:nth-child(2):hover {
+            background-color: rgb(151, 14, 14);
+        }
+    }
+
+    .chip-png {
+        max-width: 15rem;
+        filter: $img-filter;
+    }
+
+    .details-main-wrapper {
+        height: 50%;
+        border-bottom: 1px solid white;
+
+        .details-title {
+            color: $black;
+        }
+    
+        .details-p {
+            color: $white;
+        }
+    
+        .fa-pin {
+            font-size: 1.2em;
+            background-color: transparent;
+            box-shadow: none;
+            &:active {
+                background-color: transparent;
+                color: $black;
+            }
+        }      
+    }
+
+    .amount-wrapper {
+        
+        .details-title {
+            color: $black;
+        }
+
+        .details-p {
+            color: $white;
+        }
+
+        .back-btn {
+            width: 8rem;
+            background-color: rgb(46, 46, 46);
+            &:hover {
+                background-color: rgb(24, 24, 24);   
+            }
+        }
+    }
+}
+
+.footer {
+    margin: 2rem 0;
+    color: $black;
+}
+
+@media (max-width: 1200px) {
+    .content {
+        flex-direction: column;
+        gap: 1.7rem;
+
+        .card-png {
+            align-self: center;
+            max-width: 22rem;
+        }
+    
+        .content-info {
+            gap: 1rem;
+        }
+    }
+    .details {
+        min-height: 75vh;
+        gap: 2rem;
+    
+        .details-main-wrapper {
+            gap: 2rem;
+        }
+
+    }
+}
+
+@media (max-width: 992px) {
+    .content {
+        .card-png {
+            max-width: 16rem;
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .details {
+        min-height: 80vh;
+    }
+}
+
+@media (max-width: 576px) {
+    .details {
+        min-height: 75vh;
+        justify-content: space-evenly;
+    }
+}
+
+@media (max-width: 375px) {
+    .card-btn {
+        margin-bottom: 0.5rem;
+    }
+}
+
+
