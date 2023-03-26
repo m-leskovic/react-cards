@@ -1,7 +1,8 @@
 const Footer = () => {
+    const date = new Date();
     return (
-        <div className="footer text-center">
-            <p className="footer-p fs-5">&copy; MyBank 2023</p>
+        <div className="footer text-center mt-4 p-2">
+            <p className="footer-p">&copy; MyBank {date.getFullYear()}</p>
         </div>
     )
 }

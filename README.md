@@ -1,6 +1,6 @@
 # React-cards
 
-A sample app for managing credit cards.
+A sample app for managing credit cards with the help of CRUD operations.
 
 ## Table of contents
 * [Technologies](#technologies)

@@ -1,14 +1,13 @@
-import Container from "react-bootstrap/Container";
 import AddCard from "../pages/AddCard";
+import Container from "react-bootstrap/Container";
 import Table from "react-bootstrap/Table";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
+import Image from "react-bootstrap/Image";
 import Button from "react-bootstrap/Button";
 import { useNavigate } from "react-router-dom";
 import { observer } from "mobx-react-lite";
 import { action } from "mobx";
 
-const Content = observer(({ store }) => {
+const CardContent = observer(({ store }) => {
     const navigate = useNavigate();
     const hideNum = num => {
         return `${"*".repeat(num.length - 4)}${num.substr(-4)}`;
@@ -30,19 +29,19 @@ const Content = observer(({ store }) => {
     return (
         <>
             {store.showModal? <AddCard store={store} /> : null }
-            {store.cardData.map(card => {
+            {store.cardData.map((card, i) => {
                 return (
-                    <Container fluid className="content d-flex justify-content-between" key={card.id}>
-                        <img className="card-png" src={require("../assets/card.png")} alt="Credit card" />
-                        <Table className="content-info text-center">
-                            <thead className="content-info-top fw-bold">
+                    <Container fluid="md" className="content d-flex align-items-center p-3" key={card.id}>
+                        <Image className="card-png" src={require("../assets/card.png")} alt="Credit card" />
+                        <Table borderless className="content-table text-center mx-md-3 mb-0">
+                            <thead className="content-table-top">
                                 <tr>
                                     <th>Card number</th>
                                     <th>Valid through</th>
                                     <th>Cardholder</th>
                                 </tr>
                             </thead>
-                            <tbody className="content-info-bottom">
+                            <tbody className="content-table-bottom">
                                 <tr>
                                     <td>{hideNum(card.number)}</td>
                                     <td>{card.valid}</td>
@@ -50,7 +49,7 @@ const Content = observer(({ store }) => {
                                 </tr>
                             </tbody>
                         </Table>
-                        <Button onClick={()=> handleDetails(card)} className="details-btn align-self-end">
+                        <Button  className="details-btn align-self-end" onClick={() => handleDetails(card)}>
                             Details
                         </Button>
                     </Container>
@@ -60,4 +59,4 @@ const Content = observer(({ store }) => {
     )
 })
 
-export default Content
+export default CardContent

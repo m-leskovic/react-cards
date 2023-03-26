@@ -1,5 +1,5 @@
 import Container from "react-bootstrap/Container";
-import Content from "../components/Content";
+import CardContent from "../components/CardContent";
 import Button from "react-bootstrap/Button";
 import { observer } from "mobx-react-lite";
 import { action } from "mobx";
@@ -10,19 +10,20 @@ const Home = observer(({ store }) => {
     })
     return (
         <>
-            {store.logged?
-                <Container fluid className="home d-flex flex-column align-items-center">
-                    <Content store={store} />
-                    <Button className="add-btn" onClick={handleModal}>
+            {store.isLogged? (
+                <Container fluid="md" className="home d-flex gap-md-3 flex-column justify-content-evenly align-items-center p-0">
+                    <CardContent store={store} />
+                    <Button className="add-btn mt-3" onClick={handleModal}>
                         + Add a new card
                     </Button>
                 </Container>
-            :   <Container fluid className="text-center">
-                    <h4>No cards to show. Please log in.</h4>
+            ) : (
+                <Container fluid="md" className="no-content text-center mt-5">
+                    <h3>No cards to show. Please log in.</h3>
                 </Container>
-            }
+            )}
         </>
-        )
+    )
 })
 
 export default Home

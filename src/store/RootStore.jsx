@@ -12,12 +12,12 @@ class CardStore {
     cardId = null
     showModal = false
     showPin = false
-    hidden = "****"
+    hiddenPin = "****"
     login = {
         user: "",
         pass: ""
     }
-    logged = false
+    isLogged = false
     createCard = {
         id: "",
         number: "",

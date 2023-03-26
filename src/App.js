@@ -3,7 +3,7 @@ import Login from "./pages/Login";
 import Home from "./pages/Home";
 import CardDetails from "./pages/CardDetails";
 import EditCard from "./pages/EditCard";
-import Footer from "./components/Footer"
+import Footer from "./components/Footer";
 import rootStore from "./store/RootStore";
 import { Routes, Route } from "react-router-dom";
 

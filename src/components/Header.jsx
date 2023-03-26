@@ -1,5 +1,6 @@
-import Navbar from "react-bootstrap/Navbar"
-import Nav from "react-bootstrap/Nav"
+import Navbar from "react-bootstrap/Navbar";
+import Nav from "react-bootstrap/Nav";
+import Image from "react-bootstrap/Image";
 import Button from "react-bootstrap/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faArrowRightFromBracket } from "@fortawesome/free-solid-svg-icons";
@@ -14,30 +15,37 @@ const Header = observer(({ store }) => {
             user: "",
             pass: ""
         };
-        store.logged = false;
+        store.isLogged = false;
         navigate("/");
     })
     return (
-        <Navbar expand="sm" className="navbar my-2 mx-3">
-            <Navbar.Brand>
-                <Navbar.Text className="nav-brand me-2 fs-4">MyBank</Navbar.Text>
-                <Navbar.Brand className="m-auto">
-                    <img className="logo-png" src={require("../assets/logo.png")} alt="Logo" />
+        <Navbar expand="xs" className="mb-3">
+            <Nav className="flex-row align-items-center">
+                <Navbar.Brand className="ms-3 me-0">
+                    <Navbar.Text className="nav-brand-name">
+                        MyBank
+                    </Navbar.Text>
+                    <Navbar.Brand className="ms-2">
+                        <Image className="logo-png" src={require("../assets/logo.png")} alt="Logo" />
+                    </Navbar.Brand>
                 </Navbar.Brand>
-            </Navbar.Brand>
-            <Nav>
-                <Nav.Link className="mb-2" href="/home">Home</Nav.Link>
+            <Nav.Link className="nav-home me-3" href="/home">Home</Nav.Link>
             </Nav>
-            { store.logged?
-                <Navbar.Text className="nav-logged-wrapper ms-auto">
-                    <FontAwesomeIcon className="fa-user" icon={faUser} />
-                    <Navbar.Text className="nav-logged-user">Logged in as: <b>{store.login.user}</b></Navbar.Text>
-                    <Button className="nav-logout-btn" onClick={handleLogout}>
+            { store.isLogged? (
+                <Navbar.Text className="nav-logged-wrapper me-3">
+                    <FontAwesomeIcon className="fa-user ms-3" icon={faUser} />
+                    <Navbar.Text className="nav-logged-user mx-2">
+                        Logged in as: <b>{store.login.user}</b>
+                    </Navbar.Text>
+                    <Button size="sm" className="nav-logout-btn" onClick={handleLogout}>
                         <FontAwesomeIcon icon={faArrowRightFromBracket} />
                     </Button>
                 </Navbar.Text>
-            : (window.location.pathname === "/home")? <Button className="nav-login-btn mb-1 ms-auto fw-bold" onClick={() => navigate("/")}>Log in</Button>
-            : null
+            ) : window.location.pathname === "/home"? (
+                <Button className="nav-login-btn me-3" onClick={() => navigate("/")}>
+                    Log in
+                </Button>
+            ) : null
             }
         </Navbar>
     )

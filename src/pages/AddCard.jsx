@@ -1,25 +1,20 @@
-import Form from "react-bootstrap/Form";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import CloseButton from 'react-bootstrap/CloseButton';
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
 import { observer } from "mobx-react-lite";
 import { action } from "mobx";
 import { nanoid } from "nanoid";
-import { ModalBody } from "react-bootstrap";
-
 
 const AddCard = observer(({ store }) => {
     const handleHide = action(() => store.showModal = false);
     const handleChange = action(e => {
         const tg = e.target;
-        store.createCard[tg.name] = tg.value;
-    })
-    const handleNumChange = action(e => {
-        const tg = e.target;
-        const newValue = tg.value.replace(/\W/gi, "").replace(/(.{4})/g, "$1 ");
-        store.createCard.number = newValue;
+        const newCreate = {...store.createCard};
+        newCreate[tg.name] = tg.value;
+        if (tg.name === "name") newCreate[tg.name] = tg.value.match(/[a-zA-Z -]*/);
+        if (tg.name === "number") newCreate[tg.name] = tg.value.replace(/\W/gi, "").replace(/(.{4})/g, "$1 ").trim();
+        store.createCard = newCreate;
     })
     const handleSubmit = action(e => {
         e.preventDefault();
@@ -27,10 +22,10 @@ const AddCard = observer(({ store }) => {
             id: nanoid(),
             number: store.createCard.number.replace(/\s/g, ""),
             name: store.createCard.name,
-            valid: store.createCard.valid,
+            valid: store.createCard.valid.replace(/\W/gi, "").replace(/(\d{2})(\d{2})/g, "$1/$2"),
             cvv: store.createCard.cvv,
             pin: store.createCard.pin,
-            amountEur: store.createCard.amountEur
+            amountEur: Number(Math.round(store.createCard.amountEur * 100) / 100)
         }
         const newArr = [...store.cardData, newCard];
         store.cardData = newArr;
@@ -42,29 +37,34 @@ const AddCard = observer(({ store }) => {
     })
     return (
         <Modal show={store.showModal} backdrop="static">
-            <CloseButton className="close-btn align-self-end" onClick={handleHide} />
+            <CloseButton className="close-btn ms-auto" onClick={handleHide} />
             <Modal.Header>
-                <Modal.Title className="add-card-title my-2 mx-auto fw-bold">
+                <Modal.Title className="add-card-title fw-bold mx-auto">
                     Add a new card
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <Form className="add-card-form d-flex flex-column" onSubmit={handleSubmit}>
-                    <Form.Group>
+                <Form
+                    className="add-card-form d-flex flex-column align-items-center"
+                    onSubmit={handleSubmit}
+                >
+                    <Form.Group className="add-form-group">
                         <Form.Label className="add-form-label fw-bold">Card number</Form.Label>
                         <Form.Control
+                            className="add-form-input"
                             type="text"
                             maxLength={19}
                             name="number"
                             value={store.createCard.number}
-                            onChange={handleNumChange}
+                            onChange={handleChange}
                             placeholder="Enter card number"
                             required
                         />
                     </Form.Group>
-                    <Form.Group>
+                    <Form.Group className="add-form-group">
                         <Form.Label className="add-form-label fw-bold">Cardholder name</Form.Label>
                         <Form.Control
+                            className="add-form-input"
                             type="text"
                             name="name"
                             value={store.createCard.name}
@@ -73,9 +73,10 @@ const AddCard = observer(({ store }) => {
                             required
                         />
                     </Form.Group>
-                    <Form.Group>
+                    <Form.Group className="add-form-group">
                         <Form.Label className="add-form-label fw-bold">Expiration date</Form.Label>
                         <Form.Control
+                            className="add-form-input"
                             type="text"
                             maxLength={5}
                             name="valid"
@@ -85,9 +86,10 @@ const AddCard = observer(({ store }) => {
                             required
                         />
                     </Form.Group>
-                    <Form.Group>
+                    <Form.Group className="add-form-group">
                         <Form.Label className="add-form-label fw-bold">CVV</Form.Label>
                         <Form.Control
+                            className="add-form-input"
                             type="text"
                             maxLength={3}
                             name="cvv"
@@ -96,9 +98,10 @@ const AddCard = observer(({ store }) => {
                             required
                         />
                     </Form.Group>
-                    <Form.Group>
+                    <Form.Group className="add-form-group">
                         <Form.Label className="add-form-label fw-bold">PIN</Form.Label>
                         <Form.Control
+                            className="add-form-input"
                             type="text"
                             maxLength={4}
                             name="pin"
@@ -108,9 +111,10 @@ const AddCard = observer(({ store }) => {
                             required
                         />
                     </Form.Group>          
-                    <Form.Group>
+                    <Form.Group className="add-form-group">
                         <Form.Label className="add-form-label fw-bold">Amount on card (€)</Form.Label>
                         <Form.Control
+                            className="add-form-input"
                             type="number"
                             name="amountEur"
                             value={store.createCard.amountEur}
@@ -119,7 +123,7 @@ const AddCard = observer(({ store }) => {
                             required
                         />
                     </Form.Group>
-                    <Button className="submit-btn align-self-center" type="submit">
+                    <Button className="submit-btn mt-3" type="submit">
                         Save
                     </Button>
                 </Form>
