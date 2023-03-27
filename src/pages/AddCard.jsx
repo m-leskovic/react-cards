@@ -11,9 +11,17 @@ const AddCard = observer(({ store }) => {
     const handleChange = action(e => {
         const tg = e.target;
         const newCreate = {...store.createCard};
-        newCreate[tg.name] = tg.value;
-        if (tg.name === "name") newCreate[tg.name] = tg.value.match(/[a-zA-Z -]*/);
-        if (tg.name === "number") newCreate[tg.name] = tg.value.replace(/\W/gi, "").replace(/(.{4})/g, "$1 ").trim();
+        if (tg.name === "number") {
+            newCreate[tg.name] = tg.value.replace(/(\W|[a-zA-Z -])/gi, "").replace(/(.{4})/g, "$1 ").trim();
+        } else if (tg.name === "cvv" || tg.name === "pin") {
+            newCreate[tg.name] = tg.value.match(/[0-9]*/);
+        } else if (tg.name === "name") {
+            newCreate[tg.name] = tg.value.match(/[a-zA-Z -]*/);
+        } else if (tg.name === "valid") {
+            newCreate[tg.name] = tg.value.replace(/(\W|[a-zA-Z -])/gi, "").replace(/(\d{2})(\d{2})/g, "$1/$2");
+        } else {
+            newCreate[tg.name] = tg.value;
+        }
         store.createCard = newCreate;
     })
     const handleSubmit = action(e => {
@@ -22,7 +30,7 @@ const AddCard = observer(({ store }) => {
             id: nanoid(),
             number: store.createCard.number.replace(/\s/g, ""),
             name: store.createCard.name,
-            valid: store.createCard.valid.replace(/\W/gi, "").replace(/(\d{2})(\d{2})/g, "$1/$2"),
+            valid: store.createCard.valid.replace(/(\W|[a-zA-Z -])/gi, "").replace(/(\d{2})(\d{2})/g, "$1/$2"),
             cvv: store.createCard.cvv,
             pin: store.createCard.pin,
             amountEur: Number(Math.round(store.createCard.amountEur * 100) / 100)
@@ -80,7 +88,7 @@ const AddCard = observer(({ store }) => {
                             type="text"
                             maxLength={5}
                             name="valid"
-                            value={store.createCard.valid.replace(/\W/gi, "").replace(/(\d{2})(\d{2})/g, "$1/$2")}
+                            value={store.createCard.valid}
                             onChange={handleChange}
                             placeholder="MM/YY"
                             required
@@ -93,7 +101,7 @@ const AddCard = observer(({ store }) => {
                             type="text"
                             maxLength={3}
                             name="cvv"
-                            value={store.createCard.cvv.match(/[0-9]*/)}
+                            value={store.createCard.cvv}
                             onChange={handleChange} placeholder="Enter CVV"
                             required
                         />
@@ -105,7 +113,7 @@ const AddCard = observer(({ store }) => {
                             type="text"
                             maxLength={4}
                             name="pin"
-                            value={store.createCard.pin.match(/[0-9]*/)}
+                            value={store.createCard.pin}
                             onFocus={generate}
                             onChange={handleChange}
                             required

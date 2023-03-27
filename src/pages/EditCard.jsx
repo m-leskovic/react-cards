@@ -15,12 +15,14 @@ const EditCard = observer(({ store }) => {
         e.preventDefault();
         const tg = e.target;
         const newEdit = {...store.currentCard};
-        if (tg.name === "cvv" || tg.name === "pin") {
+        if (tg.name === "number") {
+            newEdit[tg.name] = tg.value.replace(/(\W|[a-zA-Z -])/gi, "").replace(/(.{4})/g, "$1 ").trim();
+        } else if (tg.name === "cvv" || tg.name === "pin") {
             newEdit[tg.name] = tg.value.match(/[0-9]*/);
         } else if (tg.name === "name") {
             newEdit[tg.name] = tg.value.match(/[a-zA-Z -]*/);
         } else if (tg.name === "valid") {
-            newEdit[tg.name] = tg.value.replace(/\W/gi, "").replace(/(\d{2})(\d{2})/g, "$1/$2");
+            newEdit[tg.name] = tg.value.replace(/(\W|[a-zA-Z -])/gi, "").replace(/(\d{2})(\d{2})/g, "$1/$2");
         } else {
             newEdit[tg.name] = tg.value;
         }
