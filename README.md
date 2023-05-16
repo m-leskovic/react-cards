@@ -1,6 +1,7 @@
 # React-cards
 
-A sample app for managing credit cards with the help of CRUD operations.
+A sample app for managing credit cards with the help of CRUD operations.  
+This is the app's [Figma design](https://www.figma.com/file/GMEwjrcP2ryeYzj6Xa14ZJ/Cards?type=design&t=s5GustKnzS7oXEU8-6).
 
 ## Table of contents
 * [Technologies](#technologies)
